@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--从classpath的根路径去加载db.properties文件-->
+    <!--<context:property-placeholder location="classpath:db.properties" system-properties-mode="NEVER"/>-->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <!--配置一个druid的连接池-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+    </bean>
+
+    <!--配置DAO-->
+    <bean id="userDao" class="com.sunny._06_register.dao.impl.UserDaoImpl">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--配置service-->
+    <bean id="userService" class="com.sunny._06_register.service.impl.UserServiceImpl">
+        <property name="dao" ref="userDao"/>
+    </bean>
+
+    <!--配置Action/Controller
+        如果使用Struct2的Action,此时bean的作用域应该是多例: scope="prototype"
+        如果使用的SpringMVC的Controller, 此时bean的作用域应该是单例的
+    -->
+    <bean id="userController" class="com.sunny._06_register.controller.UserController">
+        <property name="service" ref="userService"/>
+    </bean>
+
+</beans>

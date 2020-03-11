@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       https://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--从classpath的根路径去加载db.properties文件-->
+    <!--<context:property-placeholder location="classpath:db.properties" system-properties-mode="NEVER"/>-->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <!--配置一个druid的连接池-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+    </bean>
+
+    <!--配置dao-->
+    <bean id = "accountDao" class="com.sunny.dao.impl.AccountDaoImpl">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--配置service-->
+    <bean id="accountService" class="com.sunny.service.impl.AccountServiceImpl">
+        <property name="dao" ref="accountDao"/>
+    </bean>
+    
+    <!-- ====================================================================== -->
+
+    <!-- 1: 配置JDBC事务管理器 WHAT:做什么增强(这里做事务增强)-->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 2: 配置事务管理器增强 WHEN-->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="trans"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- 3: 配置切面 WHERE-->
+    <aop:config>
+        <aop:pointcut id="txPointcut" expression="execution(* com.sunny.service.*Service.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
+    
+    <!-- ====================================================================== -->
+
+    <!--配置一个CRUD的通用事务的配置-->
+    <tx:advice id="crudAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <!--service中的查询方法-->
+            <tx:method name="get*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="list*" read-only="true" propagation="REQUIRED"/>
+            <tx:method name="query*" read-only="true" propagation="REQUIRED"/>
+            <!--service中其他方法(非查询)-->
+            <tx:method name="*" propagation="REQUIRED"/>
+        </tx:attributes>
+    </tx:advice>
+</beans>

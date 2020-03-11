@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <bean id="employeeDao3" class="com.sunny._04cglib_methodinterceptor.dao.impl.EmployeeDaoImpl3"/>
+
+    <bean id="logUtil" class="com.sunny._04cglib_methodinterceptor.log.LogUtil"/>
+
+    <bean id="employeeServiceImpl3" class="com.sunny._04cglib_methodinterceptor.service.impl.EmployeeServiceImpl3">
+        <property name="dao" ref="employeeDao3"/>
+    </bean>
+
+    <!--配置一个日志增强的类-->
+    <bean id="logAdvice" class="com.sunny._04cglib_methodinterceptor.log.LogAdvice">
+        <property name="target" ref="employeeServiceImpl3"/>
+        <property name="logUtil" ref="logUtil"/>
+    </bean>
+
+</beans>

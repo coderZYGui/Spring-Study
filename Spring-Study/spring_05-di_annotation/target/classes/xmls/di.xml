@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--DI注解解析器
+        在Spring Test中,不用配就可以
+        在普通测试中,必须要配;
+        开发中一般都要配置!
+    -->
+    <context:annotation-config/>
+
+    <!--加载properties文件-->
+    <context:property-placeholder location="classpath:db.properties, classpath:server.properties "/>
+
+    <bean id="cat1" class="com.sunny.di.Cat"/>
+    <bean id="cat2" class="com.sunny.di.Cat"/>
+    <bean id="person" class="com.sunny.di.Person"/>
+
+    <bean id="valueBean" class="com.sunny.di.ValueBean"/>
+
+</beans>

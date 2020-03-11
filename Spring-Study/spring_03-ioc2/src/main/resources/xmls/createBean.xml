@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--1、构造器实例化(无参构造器),使用最多-->
+    <bean id="cat1" class="com.sunny.createbean._01_constructor.Cat1"/>
+
+    <!--2、静态工厂方法实例化(了解)
+        以前使用静态工厂方法: Cat2 cat2 = Cat2Factory.createInstance();来创建,
+        现在只不过把这种方式,设置到配置文件中来了
+    -->
+    <bean id="cat2" class="com.sunny.createbean._02_static_factory.Cat2Factory"
+          factory-method="createInstance"/>
+
+    <!--3、实例工厂方法实例化(了解)
+        第一个bean是创建实例工厂对象,第二个bean是通过实例工厂对象调用工厂方法创建Cat3的对象
+    -->
+    <bean id="cat3Factory" class="com.sunny.createbean._03_instance_factory.Cat3Factory"/>
+    <bean id="cat3" factory-bean="cat3Factory" factory-method="createInstance"/>
+
+    <!--4、实现FactoryBean接口实例化:实例工厂的变种
+        Cat4Factory工厂类的创建实例的方法已经固定实现了,Cat4Factory通过实现方法getObject来
+            创建Cat4的对象
+    -->
+    <bean id="cat4" class="com.sunny.createbean._04_factory_bean.Cat4Factory">
+        <property name="name" value="猫猫4"/>
+    </bean>
+
+</beans>

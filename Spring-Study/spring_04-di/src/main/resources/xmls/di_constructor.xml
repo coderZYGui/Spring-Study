@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--构造器注入: 常量类型-->
+    <bean id="employee1" class="com.sunny._03_di_constructor.Employee1">
+        <constructor-arg name="name" value="zygui"/>
+        <constructor-arg name="age" value="23"/>
+        <!--<constructor-arg name="salary" value="9999.00"/>-->
+        <constructor-arg name="salary">
+            <null/>
+        </constructor-arg>
+    </bean>
+
+    <!--构造器注入: 对象类型-->
+    <bean id="cat1" class="com.sunny._03_di_constructor.Cat1"/>
+    <bean id="perosn1" class="com.sunny._03_di_constructor.Person1">
+        <constructor-arg name="c1" ref="cat1"/>
+    </bean>
+
+    <!--构造器注入: 集合类型-->
+    <bean id="collectionBean1" class="com.sunny._03_di_constructor.CollectionBean1">
+        <!--set类型-->
+        <constructor-arg name="set">
+            <set>
+                <value>set1</value>
+                <value>set2</value>
+            </set>
+        </constructor-arg>
+        <!--list类型-->
+        <constructor-arg name="list">
+            <list>
+                <value>list1</value>
+                <value>list2</value>
+            </list>
+        </constructor-arg>
+        <!--array类型-->
+        <constructor-arg name="array">
+            <array>
+                <value>array1</value>
+                <value>array2</value>
+            </array>
+        </constructor-arg>
+        <!--map类型-->
+        <constructor-arg name="map">
+            <map>
+                <entry key="key1" value="value1"/>
+                <entry key="key2" value="value2"/>
+            </map>
+        </constructor-arg>
+        <!--properties类型-->
+        <constructor-arg name="prop">
+            <value>
+                k1=v1
+                k2=v2
+                k3=v3
+            </value>
+        </constructor-arg>
+    </bean>
+</beans>

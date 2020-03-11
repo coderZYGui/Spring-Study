@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <bean id="employeeDao1" class="com.sunny._02_dynamic_proxy.dao.impl.EmployeeDaoImpl1"/>
+
+    <bean id="employeeService1" class="com.sunny._02_dynamic_proxy.service.impl.EmployeeServiceImpl1">
+        <property name="dao1" ref="employeeDao1"/>
+    </bean>
+
+    <!--AOP配置: 在什么地点 + 什么时机 + 做什么增强-->
+    <!--1. WHAT: 做什么增强-->
+    <bean id="transactionManager1" class="com.sunny._02_dynamic_proxy.tx.TransactionManager1"/>
+    <aop:config > <!--proxy-target-class="false" 使用CGLIB的方式-->
+        <!--配置一个AOP切面: ①在什么地点 + ②什么时机 + ③做什么增强-->
+        <aop:aspect ref="transactionManager1"> <!--关联WHAT-->
+            <!--2. WHERE: 在那些包中的哪些类中的哪些方法上做增强-->
+            <aop:pointcut id="txPoint"
+                          expression="execution(* com.sunny._02_dynamic_proxy.service.*Service1.*(..))"/>
+            <!--3. WHEN: 在方法执行的什么时机做增强-->
+            <aop:before method="begin" pointcut-ref="txPoint"/>
+            <aop:after-returning method="commit" pointcut-ref="txPoint"/> <!--业务方法执行完毕后-->
+            <aop:after-throwing method="rollback" pointcut-ref="txPoint" throwing="exception"/>
+            <aop:after method="close" pointcut-ref="txPoint"/>
+            <!--和上面完成的功能相同-->
+            <!--<aop:around method="aroundMethod" pointcut-ref="txPoint"/>-->
+        </aop:aspect>
+    </aop:config>
+
+</beans>

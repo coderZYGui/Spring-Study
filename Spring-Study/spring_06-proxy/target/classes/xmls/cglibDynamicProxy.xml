@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <bean id="employeeDao2" class="com.sunny._03cglib_dynamic_proxy.dao.impl.EmployeeDaoImpl2"/>
+
+    <bean id="transactionManager2" class="com.sunny._03cglib_dynamic_proxy.tx.TransactionManager2"/>
+
+    <bean id="employeeService2" class="com.sunny._03cglib_dynamic_proxy.service.impl.EmployeeServiceImpl2">
+        <property name="dao" ref="employeeDao2"/>
+    </bean>
+
+    <!--配置一个事务增强的类-->
+    <bean id="transactionManagerAdvice" class="com.sunny._03cglib_dynamic_proxy.tx.TransactionManagerAdvice2">
+        <property name="target" ref="employeeService2"/>
+        <property name="tx" ref="transactionManager2"/>
+    </bean>
+
+</beans>

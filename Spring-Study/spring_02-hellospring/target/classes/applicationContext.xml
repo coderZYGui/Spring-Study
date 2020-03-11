@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    <bean id="helloSpring" class="com.sunny.domain.HelloSpring">
+        <property name="str" value="桂朝阳"/>
+        <property name="age" value="22"/>
+
+    </bean>
+
+    <bean id="helloSpring2" class="com.sunny.domain.HelloSpring">
+        <property name="str" value="桂阳"/>
+        <property name="age" value="21"/>
+    </bean>-->
+
+    <import resource="classpath:xmls/helloSpring.xml"/>
+
+    <import resource="classpath:xmls/helloGui.xml"/>
+
+
+</beans>

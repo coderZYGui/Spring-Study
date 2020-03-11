@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--多个bean共同配置的抽取-->
+    <bean id="baseBean" abstract="true">
+        <property name="name" value="Tom"/>
+        <property name="age" value="23"/>
+    </bean>
+
+    <bean id="someBean1" class="com.sunny._04_bean_tag_inheritance.SomeBean1" parent="baseBean">
+        <!--可以覆盖-->
+        <property name="name" value="lucy"/>
+        <property name="weight" value="60.0"/>
+    </bean>
+    <bean id="someBean2" class="com.sunny._04_bean_tag_inheritance.SomeBean2" parent="baseBean">
+        <property name="height" value="175.0"/>
+    </bean>
+
+
+    <!--原始写法,不使用Bean的继承-->
+    <!--<bean id="someBean1" class="com.sunny._04_bean_tag_inheritance.SomeBean1">
+        <property name="name" value="Tom"/>
+        <property name="age" value="23"/>
+        <property name="weight" value="60.0"/>
+    </bean>
+    <bean id="someBean2" class="com.sunny._04_bean_tag_inheritance.SomeBean2">
+        <property name="name" value="Tom"/>
+        <property name="age" value="23"/>
+        <property name="height" value="175.0"/>
+    </bean>-->
+</beans>

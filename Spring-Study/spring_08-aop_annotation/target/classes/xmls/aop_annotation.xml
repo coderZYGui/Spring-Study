@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--配置DI注解解析器-->
+    <context:annotation-config/>
+    <!--配置IoC注解解析器-->
+    <context:component-scan base-package="com.sunny._02_dynamic_proxy"/>
+    <!--配置AOP注解解析器-->
+    <aop:aspectj-autoproxy/> <!--默认就是jdk的动态代理-->
+
+    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>--> <!--使用的是cglib的动态代理-->
+
+
+    <!--AOP配置: 在什么地点 + 什么时机 + 做什么增强-->
+    <!--1. WHAT: 做什么增强-->
+<!--    <bean id="transactionManager1" class="com.sunny._02_dynamic_proxy.tx.TransactionManager1"/>
+    <aop:config proxy-target-class="false">
+        &lt;!&ndash;配置一个AOP切面: ①在什么地点 + ②什么时机 + ③做什么增强&ndash;&gt;
+        <aop:aspect ref="transactionManager1"> &lt;!&ndash;关联WHAT&ndash;&gt;
+            &lt;!&ndash;2. WHERE: 在那些包中的哪些类中的哪些方法上做增强&ndash;&gt;
+            <aop:pointcut id="txPoint"
+                          expression="execution(* com.sunny._02_dynamic_proxy.service.*Service1.*(..))"/>
+            &lt;!&ndash;3. WHEN: 在方法执行的什么时机做增强&ndash;&gt;
+            <aop:before method="begin" pointcut-ref="txPoint"/>
+            <aop:after-returning method="commit" pointcut-ref="txPoint"/>
+            <aop:after-throwing method="rollback" pointcut-ref="txPoint" throwing="exception"/>
+            <aop:after method="close" pointcut-ref="txPoint"/>
+            &lt;!&ndash;和上面完成的功能相同&ndash;&gt;
+            <aop:around method="aroundMethod" pointcut-ref="txPoint"/>
+        </aop:aspect>
+    </aop:config>-->
+
+</beans>

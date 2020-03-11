@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--Bean的作用域,
+        单例: 缺省是singleton,从容器中拿到的对象都是同一个对象
+        多例: prototype, 从容器拿到的对象不是同一个对象
+    -->
+    <bean id="dog" class="com.sunny.scope.Dog" scope="singleton"/>
+
+</beans>

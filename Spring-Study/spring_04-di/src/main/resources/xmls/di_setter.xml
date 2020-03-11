@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--属性注入: 注入常量类型-->
+<bean id="employee" class="com.sunny._02_di_setter.Employee">
+    <property name="name" value="coder"/>
+    <property name="age" value="23"/>
+    <property name="salary" value="188.00"/>
+</bean>
+
+<!--属性注入: 注入对象类型-->
+<bean id="cat" class="com.sunny._02_di_setter.Cat"/>
+<bean id="person" class="com.sunny._02_di_setter.Person">
+    <property name="c1" ref="cat"/>
+</bean>
+
+<!--属性注入: 注入集合类型-->
+<bean id="collectionBean" class="com.sunny._02_di_setter.CollectionBean">
+    <!--set类型-->
+    <property name="set">
+        <set>
+            <value>set1</value>
+            <value>set2</value>
+        </set>
+    </property>
+    <!--list类型-->
+    <property name="list">
+        <list>
+            <value>list1</value>
+            <value>list2</value>
+        </list>
+    </property>
+    <!--array类型-->
+    <property name="array">
+        <array>
+            <value>array1</value>
+            <value>array2</value>
+        </array>
+    </property>
+    <!--map类型-->
+    <property name="map">
+        <map>
+            <entry key="key1" value="value1"/>
+            <entry key="key2" value="value2"/>
+        </map>
+    </property>
+    <!--properties类型-->
+    <!--<property name="prop">
+        <props>
+            <prop key="key1">value1</prop>
+            <prop key="key2">value2</prop>
+        </props>
+    </property>-->
+    <property name="prop">
+        <value>
+            k1=v1
+            k2=v2
+            k3=v3
+        </value>
+    </property>
+</bean>
+</beans>

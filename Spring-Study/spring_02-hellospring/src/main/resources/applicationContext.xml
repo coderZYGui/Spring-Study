@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    <bean id="helloSpring" class="com.sunny._01_static_proxy.domain.HelloSpring">
+        <property name="str" value="桂朝阳"/> &lt;!&ndash;对应HelloSpring中的setStr方法&ndash;&gt;
+        <property name="age" value="22"/>    &lt;!&ndash;对应HelloSpring中的setAge方法&ndash;&gt;
+    </bean>
+
+    <bean id="helloSpring2" class="com.sunny._01_static_proxy.domain.HelloSpring">
+        <property name="str" value="桂阳"/>
+        <property name="age" value="21"/>
+    </bean>-->
+
+    <!---->
+    <import resource="classpath:xmls/helloSpring.xml"/>
+    <import resource="classpath:xmls/helloGui.xml"/>
+
+</beans>
